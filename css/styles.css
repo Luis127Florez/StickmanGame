@@ -22,7 +22,13 @@ body {
   width: 59px;
 }
 
-.pantalla {
+.avatar {
+  width: 59px;
+}
+
+.screen {
+  display: flex;
+  align-items: flex-end;
   background-color: aqua;
   width: 70%;
   height: 70%;
