@@ -1,51 +1,44 @@
 let avatarId = '';
+let avatarPosition = { top: 67, right: 80 };
+
+
+function displaceAvatar({ top, right }) {
+    avatarPosition = { top, right }
+}
+
+function changePostureAvatar(urlImage) {
+    const screen = document.getElementById('screen');
+    console.log(screen.clientWidth, 'ヾ(⌐■_■)ノ♪ヾ(⌐■_■)ノ♪');
+    const oldPostureAvatar = document.getElementById(`${avatarId}`);
+    if (oldPostureAvatar) screen.removeChild(oldPostureAvatar);
+    const newPostureAvatar = document.createElement("img");
+    newPostureAvatar.src = urlImage;
+    avatarId = `${Math.random()}`;
+    newPostureAvatar.id = avatarId;
+    newPostureAvatar.className = 'avatar';
+    newPostureAvatar.style = `position: absolute; top: ${avatarPosition?.top}%; right: ${avatarPosition?.right}%;`
+    screen.appendChild(newPostureAvatar);
+}
 
 function moveForward() {
-    const screen = document.getElementById('screen');
-    const oldImg =  document.getElementById(`${avatarId}`);
-    if (oldImg) screen.removeChild(oldImg);
-    const img = document.createElement("img");
-    img.src = "./img/adelante1.png";
-    avatarId = `${Math.random()}`; 
-    img.id = avatarId;
-    img.className = 'avatar';
-    screen.appendChild(img);    
+    changePostureAvatar('./img/adelante1.png');
+    displaceAvatar({ ...avatarPosition, right: avatarPosition.right - 1 });
 }
 
 function moveBack() {
-    const screen = document.getElementById('screen');
-    const oldImg =  document.getElementById(`${avatarId}`);
-    if (oldImg) screen.removeChild(oldImg);
-    const img = document.createElement("img");
-    img.src = "./img/atras.png";
-    avatarId = `${Math.random()}`; 
-    img.id = avatarId;
-    img.className = 'avatar';
-    screen.appendChild(img);   
+    changePostureAvatar('./img/atras.png');
+    displaceAvatar({ ...avatarPosition, right: avatarPosition.right + 1 });
+
 }
 
 function moveDown() {
-    const screen = document.getElementById('screen');
-    const oldImg =  document.getElementById(`${avatarId}`);
-    if (oldImg) screen.removeChild(oldImg);
-    const img = document.createElement("img");
-    img.src = "./img/abajo.png";
-    avatarId = `${Math.random()}`; 
-    img.id = avatarId;
-    img.className = 'avatar';
-    screen.appendChild(img);  
+    changePostureAvatar('./img/abajo.png');
 }
 
 function moveUp() {
-    const screen = document.getElementById('screen');
-    const oldImg =  document.getElementById(`${avatarId}`);
-    if (oldImg) screen.removeChild(oldImg);
-    const img = document.createElement("img");
-    img.src = "./img/arriba.png";
-    img.className = 'avatar';
-    avatarId = `${Math.random()}`; 
-    img.id = avatarId;
-    screen.appendChild(img);  
+    changePostureAvatar('./img/arriba.png');
+    displaceAvatar({ ...avatarPosition, top: avatarPosition.top - 1 });
+
 }
 
 
