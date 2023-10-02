@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ButtonPlayImg from "../../img/boton-de-play.png";
+import ButtonPlayImg from "../../public/img/boton-de-play.png";
 import styles from "./styles.css";
 
 export default function MainScreen() {
