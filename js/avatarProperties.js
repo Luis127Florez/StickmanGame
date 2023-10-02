@@ -1,2 +1,4 @@
 let avatarId = "";
-let avatarPosition = { top: 67, right: 80 };
+let avatarPosition = {
+    top: 67, right: 80
+};
