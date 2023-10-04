@@ -1,12 +1,12 @@
 import  React from "react";
 import Link from "next/link";
-import "./styles.css";
+import '../styles/globals.css'
 
 export default function Page() {
   return (
     <div className="main">
       Hello, Player!
-      <Link href="/mainScreen">Iniciar Juego</Link>
+      <Link href="/mainScreen">Start game</Link>
     </div>
   );
 }

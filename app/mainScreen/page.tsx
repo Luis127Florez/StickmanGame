@@ -1,7 +1,6 @@
 import  React from "react";
 import Image from "next/image";
 import ButtonPlayImg from "../../public/img/boton-de-play.png";
-import "./styles.css";
 
 export default function MainScreen() {
   return (
