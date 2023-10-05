@@ -19,7 +19,14 @@ export const ScreenView = () => {
           alt=""
         />
       </div>
-      <button onClick={() => dispatch(incrementBy()) }></button>
+      <button
+        onClick={() => {
+          console.log("asd");
+          dispatch(incrementBy());
+        }}
+      >
+        dispara
+      </button>
     </div>
   );
 };
