@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import ButtonPlayImg from "../../../../public/img/boton-de-play.png";
 import { incrementBy } from "../../../redux/avatar/avatarExtraReducer";
