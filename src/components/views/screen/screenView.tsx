@@ -8,13 +8,13 @@ import avatarForward from "../../../../public/img/adelante.png";
 import avatarDown from "../../../../public/img/abajo.png";
 import { moveForward } from "../../../redux/avatar/avatarExtraReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { avatarState } from "../../../models/avatar/avatarState";
+import { avatarState } from "../../../redux/states";
 
 export const ScreenView = () => {
   const dispatch = useDispatch();
 
   const avatarProperties = useSelector(avatarState);
-  console.log(avatarProperties);
+  console.log(avatarProperties, 'ヾ(⌐■_■)ノ♪ヾ(⌐■_■)ノ♪');
 
   const [avatar, setAvatar] = useState<StaticImageData>();
 
