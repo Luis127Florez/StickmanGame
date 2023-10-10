@@ -4,14 +4,11 @@ import { avatarState } from "../../models/avatar/avatarState";
 
 export const moveForward = createAction<number>("moveForward");
 
-
 export const avatarExtraReducer: TExtraReducer<typeof avatarState> = (
   builder
 ) => {
   builder.addCase(moveForward, (state, action) => {
-    state.right += action?.payload;
-    console.log(state, action, "௹௹");
-    return state
+    state = { ...state, right: state.right + action?.payload };
+    return state;
   });
 };
-

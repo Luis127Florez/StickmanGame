@@ -14,7 +14,7 @@ export const ScreenView = () => {
   const dispatch = useDispatch();
 
   const avatarProperties = useSelector(avatarState);
-  console.log(avatarProperties, 'ヾ(⌐■_■)ノ♪ヾ(⌐■_■)ノ♪');
+  console.log(avatarProperties, "ヾ(⌐■_■)ノ♪ヾ(⌐■_■)ノ♪");
 
   const [avatar, setAvatar] = useState<StaticImageData>();
 
@@ -30,6 +30,7 @@ export const ScreenView = () => {
             break;
           case "ArrowRight":
             setAvatar(avatarForward);
+            dispatch(moveForward(1));
             break;
           case "ArrowLeft":
             setAvatar(avatarBack);
@@ -57,6 +58,7 @@ export const ScreenView = () => {
         <Image
           id="playButton"
           width={59}
+          style={{right: avatarProperties?.right, top: avatarProperties?.top}}
           height={59}
           src={ButtonPlayImg}
           alt=""
@@ -65,7 +67,6 @@ export const ScreenView = () => {
       <button
         onClick={() => {
           console.log("asd");
-          dispatch(moveForward(2));
         }}
       >
         dispara
