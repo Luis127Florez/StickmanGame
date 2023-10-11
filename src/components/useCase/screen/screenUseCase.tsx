@@ -13,87 +13,81 @@ import {
   moveForward,
   moveUp,
 } from "../../../redux/avatar/avatarExtraReducer";
+import { checkDevouring } from "../../../controllers/avatar/avatarFunctions";
+import { TFCheckDevouring } from "../../types/screenTypes/screenTypes";
 
 export const ScreenUseCase = () => {
-
   const dispatch = useDispatch();
   const avatarProperties = useSelector(avatarState);
   const [avatar, setAvatar] = useState<StaticImageData>();
 
-  const checkDevouring = (): { devouring: boolean; type: string } => {
-    const screenDocument = document.getElementById("screen");
-    const screenCoordinates = screenDocument?.getBoundingClientRect();
-
-    const avatarDocument = document.getElementById("avatar");
-    const avatarCoordinates = avatarDocument?.getBoundingClientRect();
-
-    const screenBottom = Math.round(screenCoordinates?.bottom || 0);
-    const screenRight = Math.round(screenCoordinates?.right || 0);
-    const screenLeft = Math.round(screenCoordinates?.left || 0);
-    const screenTop = Math.round(screenCoordinates?.top || 0);
-
-    const avatarBottom = Math.round(avatarCoordinates?.bottom || 0);
-    const avatarRight = Math.round(avatarCoordinates?.right || 0);
-    const avatarLeft = Math.round(avatarCoordinates?.left || 0);
-    const avatarTop = Math.round(avatarCoordinates?.top || 0);
-
-    if (avatarBottom >= screenBottom) {
-      return { devouring: true, type: "bottom" };
+  const moveAvatarToUp = ({
+    isDevouring,
+    typesDevouring,
+  }: TFCheckDevouring) => {
+    setAvatar(avatarUp);
+    const typeDevouring = typesDevouring.find((type) => type === "top");
+    if (isDevouring && typeDevouring) {
+      return;
     }
-    if (avatarTop <= screenTop) {
-      return { devouring: true, type: "top" };
-    }
+    dispatch(moveUp(4));
+  };
 
-    console.log(avatarRight, screenRight);
-
-    if (avatarRight >= screenRight) {
-      return { devouring: true, type: "right" };
+  const moveAvatarToRight = ({
+    isDevouring,
+    typesDevouring,
+  }: TFCheckDevouring) => {
+    setAvatar(avatarForward);
+    const typeDevouring = typesDevouring.find((type) => type === "right");
+    if (isDevouring && typeDevouring) {
+      return;
     }
-    if (avatarLeft <= screenLeft) {
-      return { devouring: true, type: "left" };
-    }
+    dispatch(moveForward(4));
+  };
 
-    return { devouring: false, type: "" };
+  const moveAvatarToLeft = ({
+    isDevouring,
+    typesDevouring,
+  }: TFCheckDevouring) => {
+    setAvatar(avatarBack);
+    const typeDevouring = typesDevouring.find((type) => type === "left");
+    if (isDevouring && typeDevouring) {
+      return;
+    }
+    dispatch(moveBack(4));
+  };
+
+  const moveAvatarToDown = ({
+    isDevouring,
+    typesDevouring,
+  }: TFCheckDevouring) => {
+    setAvatar(avatarDown);
+    const typeDevouring = typesDevouring.find((type) => type === "bottom");
+    if (isDevouring && typeDevouring) {
+      return;
+    }
+    dispatch(moveDown(4));
   };
 
   useEffect(() => {
     document.addEventListener(
       "keydown",
       (event) => {
-        const devouring = checkDevouring();
-        console.log(devouring);
-
+        const checkedDevouring = checkDevouring(document);
         const codeValue = event.code;
         switch (codeValue) {
           case "ArrowUp":
-            setAvatar(avatarUp);
-            if (devouring?.devouring && devouring?.type === "top") {
-              break;
-            }
-            dispatch(moveUp(4));
+            moveAvatarToUp(checkedDevouring);
             break;
           case "ArrowRight":
-            setAvatar(avatarForward);
-            if (devouring?.devouring && devouring?.type === "right") {
-              break;
-            }
-            dispatch(moveForward(4));
+            moveAvatarToRight(checkedDevouring);
             break;
           case "ArrowLeft":
-            setAvatar(avatarBack);
-            if (devouring?.devouring && devouring?.type === "left") {
-              break;
-            }
-            dispatch(moveBack(4));
+            moveAvatarToLeft(checkedDevouring);
             break;
           case "ArrowDown":
-            setAvatar(avatarDown);
-            if (devouring?.devouring && devouring?.type === "bottom") {
-              break;
-            }
-            dispatch(moveDown(4));
+            moveAvatarToDown(checkedDevouring);
             break;
-
           default:
             break;
         }
