@@ -1,9 +1,9 @@
 import React from "react";
 import "../styles/globals.css";
-import { MainView } from "../components/views/main/mainView";
+import { MainUseCase } from "../components/useCase/main/mainUseCase";
 
 export default function Page() {
   return (
-      <MainView />
+      <MainUseCase />
   );
 }
