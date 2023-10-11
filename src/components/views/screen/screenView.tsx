@@ -44,11 +44,14 @@ export const ScreenView = () => {
     if (avatarTop <= screenTop) {
       return { devouring: true, type: "top" };
     }
+
+    console.log(avatarRight, screenRight);
+    
     if (avatarRight >= screenRight) {
-      return { devouring: true, type: "Right" };
+      return { devouring: true, type: "right" };
     }
     if (avatarLeft <= screenLeft) {
-      return { devouring: true, type: "Left" };
+      return { devouring: true, type: "left" };
     }
 
     return { devouring: false, type: "" };
@@ -58,34 +61,38 @@ export const ScreenView = () => {
     document.addEventListener(
       "keydown",
       (event) => {
-        const keyValue = event.key;
+        const devouring = checkDevouring();
+        console.log(devouring);
+
         const codeValue = event.code;
         switch (codeValue) {
           case "ArrowUp":
-            const checkUp = checkDevouring();
             setAvatar(avatarUp);
-            if (!checkUp.devouring) {
-              dispatch(moveUp(2));
+            if (devouring?.devouring && devouring?.type === "top") {
+              break;
             }
+            dispatch(moveUp(4));
             break;
           case "ArrowRight":
-            const checkRight = checkDevouring();
             setAvatar(avatarForward);
-            if (!checkRight.devouring) {
-              dispatch(moveForward(2));
+            if (devouring?.devouring && devouring?.type === "right") {
+              break;
             }
+            dispatch(moveForward(4));
             break;
           case "ArrowLeft":
-            console.log(checkDevouring(), "○( ＾皿＾)っ Hehehe…");
-
             setAvatar(avatarBack);
-            dispatch(moveBack(2));
+            if (devouring?.devouring && devouring?.type === "left") {
+              break;
+            }
+            dispatch(moveBack(4));
             break;
           case "ArrowDown":
-            console.log(checkDevouring(), "○( ＾皿＾)っ Hehehe…");
-
             setAvatar(avatarDown);
-            dispatch(moveDown(2));
+            if (devouring?.devouring && devouring?.type === "bottom") {
+              break;
+            }
+            dispatch(moveDown(4));
             break;
 
           default:
