@@ -21,16 +21,31 @@ export const ScreenUseCase = () => {
   const avatarProperties = useSelector(avatarState);
   const [avatar, setAvatar] = useState<StaticImageData>();
 
-  const moveAvatarToUp = ({
-    isDevouring,
-    typesDevouring,
-  }: TFCheckDevouring) => {
+  const moveAvatarToUp = async () => {
     setAvatar(avatarUp);
+    const { isDevouring, typesDevouring } = checkDevouring(document);
     const typeDevouring = typesDevouring.find((type) => type === "top");
     if (isDevouring && typeDevouring) {
       return;
     }
-    dispatch(moveUp(4));
+    const idSetUp = setInterval(() => {
+      dispatch(moveUp(1));
+    }, 5);
+
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        clearInterval(idSetUp);
+        resolve(resolve);
+      }, 500);
+    });
+
+    const idSetDown = setInterval(() => {
+      dispatch(moveDown(1));
+    }, 5);
+
+    setTimeout(() => {
+      clearInterval(idSetDown);
+    }, 500);
   };
 
   const moveAvatarToRight = ({
@@ -77,7 +92,7 @@ export const ScreenUseCase = () => {
         const codeValue = event.code;
         switch (codeValue) {
           case "ArrowUp":
-            moveAvatarToUp(checkedDevouring);
+            moveAvatarToUp();
             break;
           case "ArrowRight":
             moveAvatarToRight(checkedDevouring);
