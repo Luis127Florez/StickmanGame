@@ -45,3 +45,7 @@ export const checkDevouring = (document: Document): TFCheckDevouring => {
 
   return { isDevouring, typesDevouring };
 };
+
+export const gravity = (measures: { height: number; floor: number }) => {
+  
+};

@@ -21,6 +21,8 @@ export const ScreenUseCase = () => {
   const avatarProperties = useSelector(avatarState);
   const [avatar, setAvatar] = useState<StaticImageData>();
 
+
+
   const moveAvatarToUp = async () => {
     setAvatar(avatarUp);
     const { isDevouring, typesDevouring } = checkDevouring(document);
