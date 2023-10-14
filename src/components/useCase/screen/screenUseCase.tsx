@@ -21,6 +21,28 @@ export const ScreenUseCase = () => {
   const avatarProperties = useSelector(avatarState);
   const [avatar, setAvatar] = useState<StaticImageData>();
   const [isAvatarInAir, setIsAvatarInAir] = useState<boolean>();
+
+  const jump = async (jumpLevel: number = 1) => {
+    let limit = 0;
+    if (jumpLevel === 1) {
+      limit = 70;
+    }
+    if (jumpLevel === 2) {
+      limit = 100;
+    }
+    for (let index = 0; index < limit; index++) {
+      const { isDevouring, typesDevouring } = checkDevouring(document);
+      const typeDevouring = typesDevouring.find((type) => type === "top");
+      if (isDevouring && typeDevouring) return;
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(resolve);
+        }, 10);
+      });
+      dispatch(moveUp(2));
+    }
+  };
+
   useEffect(() => {
     setInterval(() => {
       const { isDevouring, typesDevouring } = checkDevouring(document);
@@ -33,28 +55,17 @@ export const ScreenUseCase = () => {
     }, 15);
   }, []);
 
-  const moveAvatarToUp = async () => {
+
+  const moveAvatarToUp = () => {
+    if (isAvatarInAir) return;
+
     setIsAvatarInAir(true);
-    console.log(isAvatarInAir, "(๑•̀ㅂ•́)و✧");
-    if (isAvatarInAir === true) return;
-    console.log(isAvatarInAir, "|ヾ(⌐■_■)ノ♪");
-    console.log(isAvatarInAir, "(～￣▽￣)～");
 
     setAvatar(avatarUp);
 
-    const idSetUp = setInterval(() => {
-      const { isDevouring, typesDevouring } = checkDevouring(document);
-      const typeDevouring = typesDevouring.find((type) => type === "top");
-      if (isDevouring && typeDevouring) return;
-      dispatch(moveUp(2));
-    }, 5);
+    jump(1);
 
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        clearInterval(idSetUp);
-        resolve(resolve);
-      }, 500);
-    });
+    setIsAvatarInAir(false);
   };
 
   const moveAvatarToRight = ({
