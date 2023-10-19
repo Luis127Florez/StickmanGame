@@ -3,7 +3,7 @@ import React from "react";
 import ButtonPlayImg from "../../../../public/img/boton-de-play.png";
 import { TCScreen } from "../../types/screenTypes/screenTypes";
 
-export const ScreenView = ({avatar, avatarProperties}: TCScreen) => {
+export const ScreenView = ({ avatar, avatarProperties }: TCScreen) => {
   return (
     <div className="container">
       <div id="screen" className="screen">

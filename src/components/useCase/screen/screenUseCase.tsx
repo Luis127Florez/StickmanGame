@@ -15,6 +15,7 @@ import {
 } from "../../../redux/avatar/avatarExtraReducer";
 import { checkDevouring } from "../../../controllers/avatar/avatarFunctions";
 import { TFCheckDevouring } from "../../types/screenTypes/screenTypes";
+import * as THREE from "three";
 
 export const ScreenUseCase = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,21 @@ export const ScreenUseCase = () => {
     }, 15);
   }, []);
 
+  useEffect(() => {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    const screen = document.getElementById("screen");
+    screen?.append(renderer.domElement);
+
+    const loader = new THREE.GLTFLoader();
+  }, []);
 
   const moveAvatarToUp = () => {
     if (isAvatarInAir) return;
