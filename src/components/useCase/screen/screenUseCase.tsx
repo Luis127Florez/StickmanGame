@@ -16,6 +16,7 @@ import {
 import { checkDevouring } from "../../../controllers/avatar/avatarFunctions";
 import { TFCheckDevouring } from "../../types/screenTypes/screenTypes";
 import * as THREE from "three";
+import { GLTFLoader } from "../../../../js/GLTFLoader";
 
 export const ScreenUseCase = () => {
   const dispatch = useDispatch();
@@ -59,17 +60,34 @@ export const ScreenUseCase = () => {
   useEffect(() => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-      75,
+      30,
       window.innerWidth / window.innerHeight,
       0.1,
-      1000
+      100
     );
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     const screen = document.getElementById("screen");
     screen?.append(renderer.domElement);
 
-    const loader = new THREE.GLTFLoader();
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    camera.position.z = 5;
+
+    const loader = new GLTFLoader();
+
+    function asd() {
+      requestAnimationFrame(asd);
+
+      cube.rotation.x += 0.03;
+      cube.rotation.y += 0.01;
+
+      renderer.render(scene, camera);
+    }
+    asd();
   }, []);
 
   const moveAvatarToUp = () => {
