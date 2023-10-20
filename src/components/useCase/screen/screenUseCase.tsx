@@ -65,26 +65,16 @@ export const ScreenUseCase = () => {
       0.1,
       100
     );
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    const screen = document.getElementById("screen");
-    screen?.append(renderer.domElement);
-
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    //scene.add(cube);
-
-    camera.position.z = 5;
-
     const loader = new GLTFLoader();
     loader.load(
-      "../../../../public/robot/RobotExpressive.glb",
+      "/robot/RobotExpressive.glb",
       function (gltf: any) {
+        console.log(gltf, 'ヾ(⌐■_■)ノ♪');
+        
         const model = gltf.scene;
         scene.add(model);
 
-       // createGUI(model, gltf.animations);
+        // createGUI(model, gltf.animations);
       },
       undefined,
       function (e) {
@@ -92,12 +82,18 @@ export const ScreenUseCase = () => {
       }
     );
 
+    const renderer = new THREE.WebGLRenderer();
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    const screen = document.getElementById("screen");
+    screen?.append(renderer.domElement);
+
+    //scene.add(cube);
+
+    camera.position.z = 5;
+
     function asd() {
       requestAnimationFrame(asd);
-
-      cube.rotation.x += 0.03;
-      cube.rotation.y += 0.01;
-
       renderer.render(scene, camera);
     }
     asd();
