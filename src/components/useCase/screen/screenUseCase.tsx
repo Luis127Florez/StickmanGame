@@ -73,11 +73,24 @@ export const ScreenUseCase = () => {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+    //scene.add(cube);
 
     camera.position.z = 5;
 
     const loader = new GLTFLoader();
+    loader.load(
+      "../../../../public/robot/RobotExpressive.glb",
+      function (gltf: any) {
+        const model = gltf.scene;
+        scene.add(model);
+
+       // createGUI(model, gltf.animations);
+      },
+      undefined,
+      function (e) {
+        console.error(e);
+      }
+    );
 
     function asd() {
       requestAnimationFrame(asd);
