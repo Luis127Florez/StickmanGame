@@ -59,21 +59,43 @@ export const ScreenUseCase = () => {
 
   useEffect(() => {
     const scene = new THREE.Scene();
+
     const camera = new THREE.PerspectiveCamera(
-      30,
+      40,
       window.innerWidth / window.innerHeight,
-      0.1,
+      0.25,
       100
     );
+    camera.position.set(0, 3, 10);;
+    camera.lookAt(0, 3, 0);
+
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x8d8d8d, 3);
+    hemiLight.position.set(0, 20, 0);
+    scene.add(hemiLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 3);
+    dirLight.position.set(0, 20, 10);
+    scene.add(dirLight);
+
+    // ground
+
+    const mesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(2000, 2000),
+      new THREE.MeshPhongMaterial({ color: 0xcbcbcb, depthWrite: false })
+    );
+    mesh.rotation.x = -Math.PI / 2;
+    scene.add(mesh);
+
     const loader = new GLTFLoader();
     loader.load(
       "/robot/RobotExpressive.glb",
       function (gltf: any) {
-        console.log(gltf, 'ヾ(⌐■_■)ノ♪');
-        
         const model = gltf.scene;
         scene.add(model);
+        model.position.set(0, 0, 0);
+        model.rotation.y = Math.PI / 2;
 
+        // model.scale.set(0.1, 0.1, 0.1);
         // createGUI(model, gltf.animations);
       },
       undefined,
@@ -85,12 +107,14 @@ export const ScreenUseCase = () => {
     const renderer = new THREE.WebGLRenderer();
 
     renderer.setSize(window.innerWidth, window.innerHeight);
-    const screen = document.getElementById("screen");
-    screen?.append(renderer.domElement);
+    const sceneRobot = document.getElementById("sceneRobot");
+    sceneRobot?.append(renderer.domElement);
 
     //scene.add(cube);
 
-    camera.position.z = 5;
+    // camera.position.z = 5;
+
+    camera.aspect = window.innerWidth / window.innerHeight;
 
     function asd() {
       requestAnimationFrame(asd);

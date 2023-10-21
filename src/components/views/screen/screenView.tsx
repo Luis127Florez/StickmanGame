@@ -2,11 +2,13 @@ import Image from "next/image";
 import React from "react";
 import ButtonPlayImg from "../../../../public/img/boton-de-play.png";
 import { TCScreen } from "../../types/screenTypes/screenTypes";
+import './styles.css'
 
 export const ScreenView = ({ avatar, avatarProperties }: TCScreen) => {
   return (
     <div className="container">
       <div id="screen" className="screen">
+        <div id="sceneRobot"></div>
         {avatar && (
           <Image
             style={{
