@@ -75,6 +75,10 @@ export const ScreenUseCase = () => {
 
         model1.scale.set(0.3, 0.3, 0.3);
 
+        setTimeout(() => {
+          scene.remove(model1);
+        }, 5000);
+
         setModel(model1);
         // createGUI(model, gltf.animations);
       },
@@ -99,7 +103,7 @@ export const ScreenUseCase = () => {
     asd();
   }, []);
 
-  useEffect(() => {
+/*   useEffect(() => {
     let i = 0;
     if (model) {
       console.log(model);
@@ -109,7 +113,7 @@ export const ScreenUseCase = () => {
         i++;
       }, 2000);
     }
-  }, [model]);
+  }, [model]); */
 
   const moveAvatarToUp = () => {
     if (isAvatarInAir) return;
