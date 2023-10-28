@@ -79,7 +79,7 @@ export const ScreenUseCase = () => {
         // createGUI(model, gltf.animations);
       },
       undefined,
-      function (e) {
+      function (e: Error) {
         console.error(e);
       }
     );
