@@ -1,8 +1,7 @@
 import Image from "next/image";
-import React from "react";
 import ButtonPlayImg from "../../../../public/img/boton-de-play.png";
 import { TCScreen } from "../../types/screenTypes/screenTypes";
-import './styles.css'
+import "./styles.css";
 
 export const ScreenView = ({ avatar, avatarProperties }: TCScreen) => {
   return (

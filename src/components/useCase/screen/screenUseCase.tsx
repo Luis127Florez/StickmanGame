@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import { ScreenView } from "../../views/screen/screenView";
 import React, { useEffect, useState } from "react";
 import { avatarState } from "../../../redux/states";
@@ -18,6 +17,7 @@ import { TFCheckDevouring } from "../../types/screenTypes/screenTypes";
 import * as THREE from "three";
 import { GLTFLoader } from "../../../../js/GLTFLoader";
 import { startSceneAndCamera } from "../../../controllers/avatar/avatarGraphic";
+import { useDispatch, useSelector } from "react-redux";
 
 export const ScreenUseCase = () => {
   const dispatch = useDispatch();
@@ -103,7 +103,7 @@ export const ScreenUseCase = () => {
     asd();
   }, []);
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     let i = 0;
     if (model) {
       console.log(model);
