@@ -24,7 +24,7 @@ export const ScreenUseCase = () => {
   const avatarProperties = useSelector(avatarState);
   const [avatar, setAvatar] = useState<StaticImageData>();
   const [isAvatarInAir, setIsAvatarInAir] = useState<boolean>();
-  const [model, setModel] = useState<any>();
+  // const [model, setModel] = useState<any>();
 
   const jump = async (jumpLevel: number = 1) => {
     let limit = 0;
@@ -59,6 +59,7 @@ export const ScreenUseCase = () => {
     }, 15);
   }, []);
 
+  let mixer;
   useEffect(() => {
     const { scene, camera } = startSceneAndCamera();
 
@@ -72,14 +73,21 @@ export const ScreenUseCase = () => {
         // el segundo es arriba abajo
         model1.position.set(0, 2, -3);
         model1.rotation.y = Math.PI / 2;
+        
+        setTimeout(() => {
+          console.log('asdasd');
+          
+          model1.position.y += 0.05
+        }, 5000);
 
         model1.scale.set(0.3, 0.3, 0.3);
 
-        setTimeout(() => {
-          scene.remove(model1);
-        }, 5000);
+        mixer = new THREE.AnimationMixer(model1);
 
-        setModel(model1);
+        let action = mixer.clipAction(gltf.animations[0]);
+        action.play();
+
+        // setModel(model1);
         // createGUI(model, gltf.animations);
       },
       undefined,
