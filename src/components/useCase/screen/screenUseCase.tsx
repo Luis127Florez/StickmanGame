@@ -59,7 +59,6 @@ export const ScreenUseCase = () => {
     }, 15);
   }, []);
 
-  let mixer;
   useEffect(() => {
     const { scene, camera } = startSceneAndCamera();
 
@@ -68,24 +67,23 @@ export const ScreenUseCase = () => {
       "/robot/RobotExpressive.glb",
       function (gltf: any) {
         const model1 = gltf.scene;
-        scene.add(model1);
-        // el ultimo es lejos o cerca con respecto al fondo
-        // el segundo es arriba abajo
-        model1.position.set(0, 2, -3);
-        model1.rotation.y = Math.PI / 2;
-        
-        setTimeout(() => {
-          console.log('asdasd');
-          
-          model1.position.y += 0.05
-        }, 5000);
 
         model1.scale.set(0.3, 0.3, 0.3);
 
-        mixer = new THREE.AnimationMixer(model1);
+        let i = 0;
+        setInterval(() => {
+          scene.add(model1);
+          // el ultimo es lejos o cerca con respecto al fondo
+          // el segundo es arriba abajo
+          model1.position.set(i, 2, -3);
+          i += 0.9;
+          model1.rotation.y = Math.PI / 2;
 
-        let action = mixer.clipAction(gltf.animations[0]);
-        action.play();
+          model1.scale.set(0.3, 0.3, 0.3);
+          setTimeout(() => {
+            scene.remove(model1);
+          }, 500);
+        }, 1000);
 
         // setModel(model1);
         // createGUI(model, gltf.animations);
@@ -106,22 +104,25 @@ export const ScreenUseCase = () => {
 
     function asd() {
       requestAnimationFrame(asd);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
       renderer.render(scene, camera);
     }
     asd();
   }, []);
 
   /*   useEffect(() => {
-    let i = 0;
-    if (model) {
-      console.log(model);
-      setInterval(() => {
-        console.log(i);
-        model.position.set(i, i, -3);
-        i++;
-      }, 2000);
-    }
-  }, [model]); */
+      let i = 0;
+      if (model) {
+        console.log(model);
+        setInterval(() => {
+          console.log(i);
+          model.position.set(i, i, -3);
+          i++;
+        }, 2000);
+      }
+    }, [model]); */
 
   const moveAvatarToUp = () => {
     if (isAvatarInAir) return;
