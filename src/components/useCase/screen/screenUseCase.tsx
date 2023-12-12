@@ -67,17 +67,20 @@ export const ScreenUseCase = () => {
       "/robot/RobotExpressive.glb",
       function (gltf: any) {
         const model1 = gltf.scene;
-        scene.add(model1);
-        // el ultimo es lejos o cerca con respecto al fondo
-        // el segundo es arriba abajo
-        model1.position.set(0, 2, -3);
-        model1.rotation.y = Math.PI / 2;
+        let i = 0;
+        setInterval(() => {
+          scene.add(model1);
+          // el ultimo es lejos o cerca con respecto al fondo
+          // el segundo es arriba abajo
+          model1.position.set(0, 2, -3);
+          i += 0.1
+          model1.rotation.y = Math.PI / 2;
 
-        model1.scale.set(0.3, 0.3, 0.3);
-
-        setTimeout(() => {
-          scene.remove(model1);
-        }, 5000);
+          model1.scale.set(0.3, 0.3, 0.3);
+          setTimeout(() => {
+            scene.remove(model1);
+          }, 500);
+        }, 1000);
 
         setModel(model1);
         // createGUI(model, gltf.animations);
@@ -103,17 +106,17 @@ export const ScreenUseCase = () => {
     asd();
   }, []);
 
-/*   useEffect(() => {
-    let i = 0;
-    if (model) {
-      console.log(model);
-      setInterval(() => {
-        console.log(i);
-        model.position.set(i, i, -3);
-        i++;
-      }, 2000);
-    }
-  }, [model]); */
+  /*   useEffect(() => {
+      let i = 0;
+      if (model) {
+        console.log(model);
+        setInterval(() => {
+          console.log(i);
+          model.position.set(i, i, -3);
+          i++;
+        }, 2000);
+      }
+    }, [model]); */
 
   const moveAvatarToUp = () => {
     if (isAvatarInAir) return;
