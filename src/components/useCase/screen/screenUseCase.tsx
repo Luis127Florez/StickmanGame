@@ -112,17 +112,7 @@ export const ScreenUseCase = () => {
     asd();
   }, []);
 
-  /*   useEffect(() => {
-      let i = 0;
-      if (model) {
-        console.log(model);
-        setInterval(() => {
-          console.log(i);
-          model.position.set(i, i, -3);
-          i++;
-        }, 2000);
-      }
-    }, [model]); */
+
 
   const moveAvatarToUp = () => {
     if (isAvatarInAir) return;
@@ -145,7 +135,7 @@ export const ScreenUseCase = () => {
     if (isDevouring && typeDevouring) {
       return;
     }
-    dispatch(moveForward(4));
+    dispatch(moveForward(4))
   };
 
   const moveAvatarToLeft = ({
