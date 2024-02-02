@@ -7,7 +7,9 @@ export const ScreenView = ({ avatar, avatarProperties }: TCScreen) => {
   return (
     <div className="container">
       <div id="screen" className="screen">
-        <div id="sceneRobot"></div>
+        <div id="enemySquare">
+          <h1>0 _ 0</h1>
+        </div>
         {avatar && (
           <Image
             style={{

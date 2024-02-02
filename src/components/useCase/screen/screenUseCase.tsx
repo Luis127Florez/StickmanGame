@@ -14,9 +14,6 @@ import {
 } from "../../../redux/avatar/avatarExtraReducer";
 import { checkDevouring } from "../../../controllers/avatar/avatarFunctions";
 import { TFCheckDevouring } from "../../types/screenTypes/screenTypes";
-import * as THREE from "three";
-import { GLTFLoader } from "../../../../js/GLTFLoader";
-import { startSceneAndCamera } from "../../../controllers/avatar/avatarGraphic";
 import { useDispatch, useSelector } from "react-redux";
 
 export const ScreenUseCase = () => {
@@ -24,7 +21,6 @@ export const ScreenUseCase = () => {
   const avatarProperties = useSelector(avatarState);
   const [avatar, setAvatar] = useState<StaticImageData>();
   const [isAvatarInAir, setIsAvatarInAir] = useState<boolean>();
-  // const [model, setModel] = useState<any>();
 
   const jump = async (jumpLevel: number = 1) => {
     let limit = 0;
@@ -57,61 +53,11 @@ export const ScreenUseCase = () => {
 
       dispatch(moveDown(1));
     }, 15);
+    
+    setInterval(() => {
+      console.log('pasoooo');
+    }, 500);
   }, []);
-
-  useEffect(() => {
-    const { scene, camera } = startSceneAndCamera();
-
-    const loader = new GLTFLoader();
-    loader.load(
-      "/robot/RobotExpressive.glb",
-      function (gltf: any) {
-        const model1 = gltf.scene;
-
-        model1.scale.set(0.3, 0.3, 0.3);
-
-        let i = 0;
-        setInterval(() => {
-          scene.add(model1);
-          // el ultimo es lejos o cerca con respecto al fondo
-          // el segundo es arriba abajo
-          model1.position.set(i, 2, -3);
-          i += 0.9;
-          model1.rotation.y = Math.PI / 2;
-
-          model1.scale.set(0.3, 0.3, 0.3);
-          setTimeout(() => {
-            scene.remove(model1);
-          }, 500);
-        }, 1000);
-
-        // setModel(model1);
-        // createGUI(model, gltf.animations);
-      },
-      undefined,
-      function (e: Error) {
-        console.error(e);
-      }
-    );
-
-    const renderer = new THREE.WebGLRenderer();
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    const sceneRobot = document.getElementById("sceneRobot");
-    sceneRobot?.append(renderer.domElement);
-
-    camera.aspect = window.innerWidth / window.innerHeight;
-
-    function asd() {
-      requestAnimationFrame(asd);
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-
-      renderer.render(scene, camera);
-    }
-    asd();
-  }, []);
-
 
 
   const moveAvatarToUp = () => {

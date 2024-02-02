@@ -7,7 +7,7 @@ export const avatarReducer = createSlice({
   initialState: {
     ...new Avatar(),
     left: 333,
-    top: 422,
+    top: 434,
     right: 392,
     bottom: 481,
   },
