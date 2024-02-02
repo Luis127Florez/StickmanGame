@@ -6,14 +6,8 @@ import avatarBack from "../../../../public/img/atras.png";
 import avatarForward from "../../../../public/img/adelante.png";
 import avatarDown from "../../../../public/img/abajo.png";
 import { StaticImageData } from "next/image";
-import {
-  moveBack,
-  moveDown,
-  moveForward,
-  moveUp,
-} from "../../../redux/avatar/avatarExtraReducer";
+import { moveDown } from "../../../redux/avatar/avatarExtraReducer";
 import { checkDevouring } from "../../../controllers/avatar/avatarFunctions";
-import { TFCheckDevouring } from "../../types/screenTypes/screenTypes";
 import { useDispatch, useSelector } from "react-redux";
 
 export const ScreenUseCase = () => {
@@ -58,12 +52,15 @@ export const ScreenUseCase = () => {
         if (codeValue === "ArrowUp") {
           moveAvatarToUp();
         }
+
         if (codeValue === "ArrowRight") {
           moveAvatarToRight();
         }
+
         if (codeValue === "ArrowLeft") {
           moveAvatarToLeft();
         }
+
         if (codeValue === "ArrowDown") {
           moveAvatarToDown();
         }
