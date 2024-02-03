@@ -6,20 +6,19 @@ import avatarBack from "../../../../public/img/atras.png";
 import avatarForward from "../../../../public/img/adelante.png";
 import avatarDown from "../../../../public/img/abajo.png";
 import { StaticImageData } from "next/image";
-import {
-  moveBack,
-  moveDown,
-  moveForward,
-  moveUp,
-} from "../../../redux/avatar/avatarExtraReducer";
+import { moveDown } from "../../../redux/avatar/avatarExtraReducer";
 import { checkDevouring } from "../../../controllers/avatar/avatarFunctions";
+<<<<<<< HEAD
 import { TFCheckDevouring } from "../../types/screenTypes/screenTypes";
+=======
+>>>>>>> 21d8f0b6dcb7144343867f0753930ef0e845d8db
 import { useDispatch, useSelector } from "react-redux";
 
 export const ScreenUseCase = () => {
   const dispatch = useDispatch();
   const avatarProperties = useSelector(avatarState);
   const [avatar, setAvatar] = useState<StaticImageData>();
+<<<<<<< HEAD
   const [isAvatarInAir, setIsAvatarInAir] = useState<boolean>();
 
   const jump = async (jumpLevel: number = 1) => {
@@ -42,6 +41,8 @@ export const ScreenUseCase = () => {
       dispatch(moveUp(2));
     }
   };
+=======
+>>>>>>> 21d8f0b6dcb7144343867f0753930ef0e845d8db
 
   useEffect(() => {
     setInterval(() => {
@@ -59,76 +60,46 @@ export const ScreenUseCase = () => {
     }, 500);
   }, []);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 21d8f0b6dcb7144343867f0753930ef0e845d8db
   const moveAvatarToUp = () => {
-    if (isAvatarInAir) return;
-
-    setIsAvatarInAir(true);
-
     setAvatar(avatarUp);
-
-    jump(1);
-
-    setIsAvatarInAir(false);
   };
 
-  const moveAvatarToRight = ({
-    isDevouring,
-    typesDevouring,
-  }: TFCheckDevouring) => {
+  const moveAvatarToRight = () => {
     setAvatar(avatarForward);
-    const typeDevouring = typesDevouring.find((type) => type === "right");
-    if (isDevouring && typeDevouring) {
-      return;
-    }
-    dispatch(moveForward(4))
   };
 
-  const moveAvatarToLeft = ({
-    isDevouring,
-    typesDevouring,
-  }: TFCheckDevouring) => {
+  const moveAvatarToLeft = () => {
     setAvatar(avatarBack);
-    const typeDevouring = typesDevouring.find((type) => type === "left");
-    if (isDevouring && typeDevouring) {
-      return;
-    }
-    dispatch(moveBack(4));
   };
 
-  const moveAvatarToDown = ({
-    isDevouring,
-    typesDevouring,
-  }: TFCheckDevouring) => {
+  const moveAvatarToDown = () => {
     setAvatar(avatarDown);
-    const typeDevouring = typesDevouring.find((type) => type === "bottom");
-    if (isDevouring && typeDevouring) {
-      return;
-    }
-    dispatch(moveDown(4));
   };
 
   useEffect(() => {
     document.addEventListener(
       "keydown",
       (event) => {
-        const checkedDevouring = checkDevouring(document);
         const codeValue = event.code;
-        switch (codeValue) {
-          case "ArrowUp":
-            moveAvatarToUp();
-            break;
-          case "ArrowRight":
-            moveAvatarToRight(checkedDevouring);
-            break;
-          case "ArrowLeft":
-            moveAvatarToLeft(checkedDevouring);
-            break;
-          case "ArrowDown":
-            moveAvatarToDown(checkedDevouring);
-            break;
-          default:
-            break;
+
+        if (codeValue === "ArrowUp") {
+          moveAvatarToUp();
+        }
+
+        if (codeValue === "ArrowRight") {
+          moveAvatarToRight();
+        }
+
+        if (codeValue === "ArrowLeft") {
+          moveAvatarToLeft();
+        }
+
+        if (codeValue === "ArrowDown") {
+          moveAvatarToDown();
         }
       },
       false
