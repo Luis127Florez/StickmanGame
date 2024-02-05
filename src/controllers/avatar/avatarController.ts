@@ -108,7 +108,7 @@ export class Avatar {
     };
   }
 
-  getInstance(): Avatar {
+  public getInstance(): Avatar {
     if (!Avatar.instance) {
       Avatar.instance = new Avatar();
     }

@@ -1,9 +1,10 @@
-import { Avatar } from "../../../models/avatar/avatarState";
+import { Avatar } from "../../../controllers/avatar/avatarController";
+
 export type TTypesDevouring = "left" | "right" | "top" | "bottom";
 
 export type TCScreen = {
-  avatar: StaticImageData | undefined;
-  avatarProperties: Avatar;
+  avatarImg: StaticImageData | undefined;
+  avatar: Avatar;
 };
 
 
