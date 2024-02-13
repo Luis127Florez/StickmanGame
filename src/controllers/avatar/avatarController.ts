@@ -38,29 +38,14 @@ export class Avatar {
     this.right += 4;
   }
 
-  async moveToUp(jumpLevel: number = 1) {
-    let limit = 0;
-    if (jumpLevel === 1) {
-      limit = 70;
-    }
-    if (jumpLevel === 2) {
-      limit = 100;
-    }
-    for (let index = 0; index < limit; index++) {
-      const { isDevouring, typesDevouring } = checkDevouring(document);
+  moveToUp() {
+    const { isDevouring, typesDevouring } = checkDevouring(document);
 
-      const typeDevouring = typesDevouring.find((type) => type === "top");
+    const typeDevouring = typesDevouring.find((type) => type === "top");
 
-      if (isDevouring && typeDevouring) return;
+    if (isDevouring && typeDevouring) return;
 
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(resolve);
-        }, 10);
-      });
-
-      this.top -= 2;
-    }
+    this.top -= 2;
   }
 
   moveAvatarToDown() {

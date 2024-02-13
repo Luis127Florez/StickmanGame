@@ -5,47 +5,55 @@ import avatarBack from "../../../../public/img/atras.png";
 import avatarForward from "../../../../public/img/adelante.png";
 import avatarDown from "../../../../public/img/abajo.png";
 import { StaticImageData } from "next/image";
-import { checkDevouring } from "../../../controllers/avatar/avatarFunctions";
 import { Avatar } from "../../../controllers/avatar/avatarController";
+import { TAvatarProperties } from "./types";
 
 export const ScreenUseCase = () => {
-  const [avatar, setAvatar] = useState(new Avatar());
+  const [avatar] = useState(new Avatar());
+  const [avatarProperties, setAvatarProperties] = useState<TAvatarProperties>(avatar.getProperties());
   const [avatarImg, setAvatarImg] = useState<StaticImageData>();
 
   useEffect(() => {
     setInterval(() => {
-      const { isDevouring, typesDevouring } = checkDevouring(document);
-
-      const typeDevouring = typesDevouring.find((type) => type === "bottom");
-
-      if (isDevouring && typeDevouring) return;
-
       avatar.moveAvatarToDown();
+      setAvatarProperties(avatar.getProperties());
     }, 15);
-
-    setInterval(() => {
-      console.log('pasoooo');
-    }, 500);
   }, []);
 
-  const moveAvatarToUp = () => {
+  console.log(avatarProperties, '<><>>>>>>');
+
+  const moveAvatarToUp = async (limit = 90) => {
     setAvatarImg(avatarUp);
-    avatar.moveToUp();
+
+    for (let index = 0; index < limit; index++) {
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(resolve);
+        }, 5);
+      });
+
+      avatar.moveToUp();
+
+      setAvatarProperties(avatar.getProperties());
+    }
   };
 
-  const moveAvatarToRight = () => {
+  const moveAvatarToRight =  () => {
     setAvatarImg(avatarForward);
     avatar.moveAvatarToRight();
+    setAvatarProperties(avatar.getProperties());
   };
 
   const moveAvatarToLeft = () => {
     setAvatarImg(avatarBack);
     avatar.moveAvatarToLeft();
+    setAvatarProperties(avatar.getProperties());
   };
 
   const moveAvatarToDown = () => {
     setAvatarImg(avatarDown);
     avatar.moveAvatarToDown();
+    setAvatarProperties(avatar.getProperties());
   };
 
   useEffect(() => {
@@ -74,5 +82,5 @@ export const ScreenUseCase = () => {
     );
   }, []);
 
-  return <ScreenView avatarImg={avatarImg} avatar={avatar} />;
+  return <ScreenView avatarImg={avatarImg} avatarProperties={avatarProperties} />;
 };
