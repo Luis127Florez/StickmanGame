@@ -14,6 +14,8 @@ export const ScreenUseCase = () => {
   const [avatarImg, setAvatarImg] = useState<StaticImageData>();
 
   useEffect(() => {
+    setAvatarImg(avatarForward);
+
     setInterval(() => {
       avatar.moveAvatarToDown();
       setAvatarProperties(avatar.getProperties());

@@ -11,7 +11,7 @@ export class Avatar {
 
   constructor() {
     this.right = 416;
-    this.top = 462;
+    this.top = 400;
     this.left = 0;
     this.bottom = 0;
     this.name = "";
