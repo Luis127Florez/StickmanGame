@@ -1,4 +1,5 @@
-import { checkDevouring } from "./avatarFunctions";
+import { checkDevouring } from "../avatarFunctions/avatarCheckDevouring";
+import { TMovement } from "../avatarFunctions/types.d";
 
 export class Avatar {
   private static instance: Avatar;
@@ -8,6 +9,7 @@ export class Avatar {
   private bottom: number;
   private name: string;
   private life: number;
+  private currentMovement: TMovement;
 
   constructor() {
     this.right = 416;
@@ -16,6 +18,7 @@ export class Avatar {
     this.bottom = 0;
     this.name = "";
     this.life = 0;
+    this.currentMovement = 'ArrowRight';
   }
 
   moveAvatarToRight() {
@@ -24,6 +27,14 @@ export class Avatar {
     const typeDevouring = typesDevouring.find((type) => type === "right");
 
     if (isDevouring && typeDevouring) return;
+
+    if (this.currentMovement === 'ArrowRight') {
+      this.currentMovement = 'ArrowRightAnaimate';
+    } else {
+      this.currentMovement = 'ArrowRight';
+    };
+
+    console.log(this.currentMovement, 'this.currentMovementthis.currentMovement');
 
     this.right -= 4;
   }
@@ -35,6 +46,8 @@ export class Avatar {
 
     if (isDevouring && typeDevouring) return;
 
+    this.currentMovement = 'ArrowLeft';
+
     this.right += 4;
   }
 
@@ -45,6 +58,8 @@ export class Avatar {
 
     if (isDevouring && typeDevouring) return;
 
+    this.currentMovement = 'ArrowUp';
+
     this.top -= 2;
   }
 
@@ -54,6 +69,8 @@ export class Avatar {
     const typeDevouring = typesDevouring.find((type) => type === "bottom");
 
     if (isDevouring && typeDevouring) return;
+
+    this.currentMovement = 'ArrowDown';
 
     this.top += 2;
   }
@@ -82,6 +99,10 @@ export class Avatar {
     return this.life;
   }
 
+  getPropertyCurrentMovement() {
+    return this.currentMovement;
+  }
+
   getProperties() {
     return {
       right: this.right,
@@ -90,6 +111,7 @@ export class Avatar {
       bottom: this.bottom,
       name: this.name,
       life: this.life,
+      currentMovement: this.currentMovement,
     };
   }
 
@@ -123,5 +145,9 @@ export class Avatar {
 
   setPropertyLife(life: number) {
     this.life = life;
+  }
+
+  setCurrentMovement(currentMovement: TMovement) {
+    this.currentMovement = currentMovement;
   }
 }

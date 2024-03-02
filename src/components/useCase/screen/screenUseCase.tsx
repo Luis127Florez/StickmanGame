@@ -1,12 +1,9 @@
 import { ScreenView } from "../../views/screen/screenView";
 import React, { useEffect, useState } from "react";
-import avatarUp from "../../../../public/img/arriba.png";
-import avatarBack from "../../../../public/img/atras.png";
-import avatarForward from "../../../../public/img/adelante.png";
-import avatarDown from "../../../../public/img/abajo.png";
 import { StaticImageData } from "next/image";
+import { TAvatarProperties } from "./types.d";
 import { Avatar } from "../../../controllers/avatar/avatarController";
-import { TAvatarProperties } from "./types";
+import { getImageChanger } from "../../../controllers/avatarFunctions/avatarExportImage";
 
 export const ScreenUseCase = () => {
   const [avatar] = useState(new Avatar());
@@ -14,7 +11,8 @@ export const ScreenUseCase = () => {
   const [avatarImg, setAvatarImg] = useState<StaticImageData>();
 
   useEffect(() => {
-    setAvatarImg(avatarForward);
+    const newImagen = getImageChanger({ newMovement: 'ArrowRight' });
+    setAvatarImg(newImagen);
 
     setInterval(() => {
       avatar.moveAvatarToDown();
@@ -22,10 +20,9 @@ export const ScreenUseCase = () => {
     }, 15);
   }, []);
 
-  console.log(avatarProperties, '<><>>>>>>');
-
   const moveAvatarToUp = async (limit = 90) => {
-    setAvatarImg(avatarUp);
+    const newImagen = getImageChanger({ newMovement: 'ArrowUp' });
+    setAvatarImg(newImagen);
 
     for (let index = 0; index < limit; index++) {
       await new Promise((resolve) => {
@@ -40,20 +37,23 @@ export const ScreenUseCase = () => {
     }
   };
 
-  const moveAvatarToRight =  () => {
-    setAvatarImg(avatarForward);
+  const moveAvatarToRight = () => {
+    const newImagen = getImageChanger({ newMovement: 'ArrowRight', currentMovement: avatarProperties.currentMovement });
+    setAvatarImg(newImagen);
     avatar.moveAvatarToRight();
     setAvatarProperties(avatar.getProperties());
   };
 
   const moveAvatarToLeft = () => {
-    setAvatarImg(avatarBack);
+    const newImagen = getImageChanger({ newMovement: 'ArrowLeft' });
+    setAvatarImg(newImagen);
     avatar.moveAvatarToLeft();
     setAvatarProperties(avatar.getProperties());
   };
 
   const moveAvatarToDown = () => {
-    setAvatarImg(avatarDown);
+    const newImagen = getImageChanger({ newMovement: 'ArrowDown' });
+    setAvatarImg(newImagen);
     avatar.moveAvatarToDown();
     setAvatarProperties(avatar.getProperties());
   };
