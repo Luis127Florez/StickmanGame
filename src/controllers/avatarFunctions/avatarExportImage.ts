@@ -5,7 +5,7 @@ import avatarForwardAnimare from "../../../public/img/adelanteAnimate.png";
 import avatarDown from "../../../public/img/abajo.png";
 import { TGetImageChanger } from "./types";
 
-export const getImageChanger: TGetImageChanger = ({ newMovement, currentMovement }) => {    
+export const getImageChanger: TGetImageChanger = ({ newMovement, currentMovement }) => {
     if (newMovement === 'ArrowDown') {
         return avatarDown;
     }
@@ -18,11 +18,12 @@ export const getImageChanger: TGetImageChanger = ({ newMovement, currentMovement
         return avatarUp;
     }
 
-    if(newMovement === 'ArrowRight') {
-        if(currentMovement === 'ArrowRightAnaimate') {
-            return avatarForwardAnimare;
-        }
+    if (newMovement === 'ArrowRight') {
         return avatarForward;
+    }
+    
+    if (newMovement === 'ArrowRight1') {
+        return avatarForwardAnimare;
     }
 
     return avatarForward;

@@ -40,6 +40,10 @@ export const ScreenUseCase = () => {
   const moveAvatarToRight = () => {
     const newImagen = getImageChanger({ newMovement: 'ArrowRight', currentMovement: avatarProperties.currentMovement });
     setAvatarImg(newImagen);
+    setTimeout(() => {
+      const newImagen = getImageChanger({ newMovement: 'ArrowRight1', currentMovement: avatarProperties.currentMovement });
+      setAvatarImg(newImagen);
+    }, 200);
     avatar.moveAvatarToRight();
     setAvatarProperties(avatar.getProperties());
   };

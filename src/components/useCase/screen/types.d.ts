@@ -5,5 +5,5 @@ export type TAvatarProperties = {
     top: number;
     right: number;
     bottom: number;
-    currentMovement: TMovement
+    currentMovement: string
 };
