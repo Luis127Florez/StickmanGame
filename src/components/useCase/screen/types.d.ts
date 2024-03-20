@@ -7,3 +7,5 @@ export type TAvatarProperties = {
     bottom: number;
     currentMovement: string
 };
+
+export type TMovement = "ArrowUp" | "ArrowRight" | "ArrowLeft" | "ArrowDown";

@@ -1,7 +1,9 @@
 import avatarUp from "../../../public/img/arriba.png";
 import avatarBack from "../../../public/img/atras.png";
-import avatarForward from "../../../public/img/adelante.png";
-import avatarForwardAnimare from "../../../public/img/adelanteAnimate.png";
+import avatarForward1 from "../../../public/img/adelante1.png";
+import avatarForward2 from "../../../public/img/adelante2.png";
+import avatarForward3 from "../../../public/img/adelante3.png";
+import avatarForward4 from "../../../public/img/adelante4.png";
 import avatarDown from "../../../public/img/abajo.png";
 import { TGetImageChanger } from "./types";
 
@@ -18,14 +20,22 @@ export const getImageChanger: TGetImageChanger = ({ newMovement, currentMovement
         return avatarUp;
     }
 
-    if (newMovement === 'ArrowRight') {
-        return avatarForward;
-    }
-    
     if (newMovement === 'ArrowRight1') {
-        return avatarForwardAnimare;
+        return avatarForward1;
     }
 
-    return avatarForward;
+    if (newMovement === 'ArrowRight2') {
+        return avatarForward2;
+    }
+
+    if (newMovement === 'ArrowRight3') {
+        return avatarForward3;
+    }
+
+    if (newMovement === 'ArrowRight4') {
+        return avatarForward4;
+    }
+
+    return avatarForward1;
 
 };

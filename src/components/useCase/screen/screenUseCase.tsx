@@ -1,7 +1,7 @@
 import { ScreenView } from "../../views/screen/screenView";
 import React, { useEffect, useState } from "react";
 import { StaticImageData } from "next/image";
-import { TAvatarProperties } from "./types.d";
+import { TAvatarProperties, TMovement } from "./types.d";
 import { Avatar } from "../../../controllers/avatar/avatarController";
 import { getImageChanger } from "../../../controllers/avatarFunctions/avatarExportImage";
 
@@ -22,6 +22,21 @@ export const ScreenUseCase = () => {
     }, 15);
   }, []);
 
+  const animateAvatar = ({ movement }: { movement: TMovement }) => {
+    let count = 1;
+    const intervalId = setInterval(() => {
+      const newImagen = getImageChanger({
+        newMovement: `${movement}${count}`,
+        currentMovement: avatarProperties.currentMovement,
+      });
+      setAvatarImg(newImagen);
+      if (count === 4) {
+        clearInterval(intervalId);
+      }
+      count++;
+    }, 100);
+  };
+
   const moveAvatarToUp = async (limit = 90) => {
     const newImagen = getImageChanger({ newMovement: "ArrowUp" });
     setAvatarImg(newImagen);
@@ -38,26 +53,12 @@ export const ScreenUseCase = () => {
       setAvatarProperties(avatar.getProperties());
     }
   };
-  console.log(avatarImg, 'd=====(￣▽￣*)bd=====(￣▽￣*)bd=====(￣▽￣*)b');
+  console.log(avatarImg, "d=====(￣▽￣*)bd=====(￣▽￣*)bd=====(￣▽￣*)b");
 
   let asd = undefined;
 
   const moveAvatarToRight = () => {
-    const newImagen = getImageChanger({
-      newMovement: "ArrowRight",
-      currentMovement: avatarProperties.currentMovement,
-    });
-
-    setAvatarImg(newImagen);
-    asd = setTimeout(() => {
-      const newImagen = getImageChanger({
-        newMovement: "ArrowRight1",
-        currentMovement: avatarProperties.currentMovement,
-      });
-      setAvatarImg(newImagen);
-    }, 200);
-    console.log(asd, 'ಠ▃ಠಠ▃ಠ');
-
+    animateAvatar({ movement: "ArrowRight" });
     avatar.moveAvatarToRight();
     setAvatarProperties(avatar.getProperties());
   };
