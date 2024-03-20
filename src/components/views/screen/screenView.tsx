@@ -19,7 +19,7 @@ export const ScreenView = ({ avatarImg, avatarProperties }: TCScreen) => {
             width={59}
             height={59}
             src={avatarImg}
-            alt=""
+            alt="avatar"
           />
         )}
 

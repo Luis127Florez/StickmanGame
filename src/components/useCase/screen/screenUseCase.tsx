@@ -7,11 +7,13 @@ import { getImageChanger } from "../../../controllers/avatarFunctions/avatarExpo
 
 export const ScreenUseCase = () => {
   const [avatar] = useState(new Avatar());
-  const [avatarProperties, setAvatarProperties] = useState<TAvatarProperties>(avatar.getProperties());
+  const [avatarProperties, setAvatarProperties] = useState<TAvatarProperties>(
+    avatar.getProperties()
+  );
   const [avatarImg, setAvatarImg] = useState<StaticImageData>();
 
   useEffect(() => {
-    const newImagen = getImageChanger({ newMovement: 'ArrowRight' });
+    const newImagen = getImageChanger({ newMovement: "ArrowRight" });
     setAvatarImg(newImagen);
 
     setInterval(() => {
@@ -21,7 +23,7 @@ export const ScreenUseCase = () => {
   }, []);
 
   const moveAvatarToUp = async (limit = 90) => {
-    const newImagen = getImageChanger({ newMovement: 'ArrowUp' });
+    const newImagen = getImageChanger({ newMovement: "ArrowUp" });
     setAvatarImg(newImagen);
 
     for (let index = 0; index < limit; index++) {
@@ -36,27 +38,39 @@ export const ScreenUseCase = () => {
       setAvatarProperties(avatar.getProperties());
     }
   };
+  console.log(avatarImg, 'd=====(￣▽￣*)bd=====(￣▽￣*)bd=====(￣▽￣*)b');
+
+  let asd = undefined;
 
   const moveAvatarToRight = () => {
-    const newImagen = getImageChanger({ newMovement: 'ArrowRight', currentMovement: avatarProperties.currentMovement });
+    const newImagen = getImageChanger({
+      newMovement: "ArrowRight",
+      currentMovement: avatarProperties.currentMovement,
+    });
+
     setAvatarImg(newImagen);
-    setTimeout(() => {
-      const newImagen = getImageChanger({ newMovement: 'ArrowRight1', currentMovement: avatarProperties.currentMovement });
+    asd = setTimeout(() => {
+      const newImagen = getImageChanger({
+        newMovement: "ArrowRight1",
+        currentMovement: avatarProperties.currentMovement,
+      });
       setAvatarImg(newImagen);
     }, 200);
+    console.log(asd, 'ಠ▃ಠಠ▃ಠ');
+
     avatar.moveAvatarToRight();
     setAvatarProperties(avatar.getProperties());
   };
 
   const moveAvatarToLeft = () => {
-    const newImagen = getImageChanger({ newMovement: 'ArrowLeft' });
+    const newImagen = getImageChanger({ newMovement: "ArrowLeft" });
     setAvatarImg(newImagen);
     avatar.moveAvatarToLeft();
     setAvatarProperties(avatar.getProperties());
   };
 
   const moveAvatarToDown = () => {
-    const newImagen = getImageChanger({ newMovement: 'ArrowDown' });
+    const newImagen = getImageChanger({ newMovement: "ArrowDown" });
     setAvatarImg(newImagen);
     avatar.moveAvatarToDown();
     setAvatarProperties(avatar.getProperties());
@@ -88,5 +102,7 @@ export const ScreenUseCase = () => {
     );
   }, []);
 
-  return <ScreenView avatarImg={avatarImg} avatarProperties={avatarProperties} />;
+  return (
+    <ScreenView avatarImg={avatarImg} avatarProperties={avatarProperties} />
+  );
 };
