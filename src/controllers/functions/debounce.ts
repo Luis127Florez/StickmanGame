@@ -1,13 +1,17 @@
-export const debounce = <T extends (...args: any[]) => void>(
-  func: T,
-  delay: number
-): ((...args: Parameters<T>) => void) => {
-  let timeoutId: NodeJS.Timeout;
+export const debounce = <T extends (...args: any[]) => void>({
+  func,
+  delay,
+  intervalId,
+}: {
+  func: T;
+  delay: number;
+  intervalId?: NodeJS.Timeout;
+}): NodeJS.Timeout => {
+  clearTimeout(intervalId);
 
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      func(...args);
-    }, delay);
-  };
+  const timeoutId = setTimeout(() => {
+    func();
+  }, delay);
+
+  return timeoutId;
 };

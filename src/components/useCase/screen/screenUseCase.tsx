@@ -8,6 +8,7 @@ import { debounce } from "../../../controllers/functions/debounce";
 
 export const ScreenUseCase = () => {
   const [avatar] = useState(new Avatar());
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
   const [avatarProperties, setAvatarProperties] = useState<TAvatarProperties>(
     avatar.getProperties()
   );
@@ -51,14 +52,14 @@ export const ScreenUseCase = () => {
 
       setAvatarProperties(avatar.getProperties());
     }
-    debounce(calmDownAvatar, 500);
+    // calmDownAvatar({ waitTime: 200 });
   };
 
   const moveAvatarToRight = () => {
     animateAvatar({ movement: "ArrowRight" });
     avatar.moveAvatarToRight();
     setAvatarProperties(avatar.getProperties());
-    debounce(calmDownAvatar, 500);
+    calmDownAvatar({ waitTime: 700 });
   };
 
   const moveAvatarToLeft = () => {
@@ -75,18 +76,20 @@ export const ScreenUseCase = () => {
     setAvatarProperties(avatar.getProperties());
   };
 
-  const calmDownAvatar = () => {
-    console.log("calmDownAvatar, (^///^)(^///^)(^///^)");
-    const newImagen = getImageChanger({
-      newMovement: `${avatar.getPropertyCurrentMovement()}5`,
+  const calmDownAvatar = ({ waitTime }: { waitTime: number }) => {
+    const id = debounce({
+      func: () => {
+        const newImagen = getImageChanger({
+          newMovement: `${avatar.getPropertyCurrentMovement()}5`,
+        });
+        setAvatarImg(newImagen);
+      },
+      delay: waitTime,
+      intervalId: intervalId,
     });
-    setAvatarImg(newImagen);
-  };
 
-/*   useEffect(() => {
-    console.log("calmDownAvatar, (^///^)(^///^)(^///^)");
-    debounce(calmDownAvatar, 500);
-  }, [avatarImg]); */
+    setIntervalId(id);
+  };
 
   useEffect(() => {
     document.addEventListener(
