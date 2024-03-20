@@ -9,7 +9,7 @@ export class Avatar {
   private bottom: number;
   private name: string;
   private life: number;
-  private currentMovement: string;
+  private currentMovement: TMovement;
 
   constructor() {
     this.right = 416;
@@ -18,7 +18,7 @@ export class Avatar {
     this.bottom = 0;
     this.name = "";
     this.life = 0;
-    this.currentMovement = 'ArrowRight1';
+    this.currentMovement = "ArrowRight";
   }
 
   moveAvatarToRight() {
@@ -28,19 +28,7 @@ export class Avatar {
 
     if (isDevouring && typeDevouring) return;
 
-    if (this.currentMovement === 'ArrowRight1') {
-      this.currentMovement = 'ArrowRight3';
-    }
-
-    if (this.currentMovement === 'ArrowRight2') {
-      this.currentMovement = 'ArrowRight1';
-    };
-    
-    if (this.currentMovement === 'ArrowRight3') {
-      this.currentMovement = 'ArrowRight2';
-    };
-
-    console.log(this.currentMovement, 'this.currentMovementthis.currentMovement');
+    this.currentMovement = "ArrowRight";
 
     this.right -= 4;
   }
@@ -52,7 +40,7 @@ export class Avatar {
 
     if (isDevouring && typeDevouring) return;
 
-    this.currentMovement = 'ArrowLeft';
+    this.currentMovement = "ArrowLeft";
 
     this.right += 4;
   }
@@ -64,7 +52,7 @@ export class Avatar {
 
     if (isDevouring && typeDevouring) return;
 
-    this.currentMovement = 'ArrowUp';
+    this.currentMovement = "ArrowUp";
 
     this.top -= 2;
   }
@@ -76,7 +64,7 @@ export class Avatar {
 
     if (isDevouring && typeDevouring) return;
 
-    this.currentMovement = 'ArrowDown';
+    this.currentMovement = "ArrowDown";
 
     this.top += 2;
   }

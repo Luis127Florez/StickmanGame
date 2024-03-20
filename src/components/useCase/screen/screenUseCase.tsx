@@ -4,6 +4,7 @@ import { StaticImageData } from "next/image";
 import { TAvatarProperties, TMovement } from "./types.d";
 import { Avatar } from "../../../controllers/avatar/avatarController";
 import { getImageChanger } from "../../../controllers/avatarFunctions/avatarExportImage";
+import { debounce } from "../../../controllers/functions/debounce";
 
 export const ScreenUseCase = () => {
   const [avatar] = useState(new Avatar());
@@ -25,11 +26,10 @@ export const ScreenUseCase = () => {
   const animateAvatar = ({ movement }: { movement: TMovement }) => {
     let count = 1;
     const intervalId = setInterval(() => {
-      const newImagen = getImageChanger({
+      const newImage = getImageChanger({
         newMovement: `${movement}${count}`,
-        currentMovement: avatarProperties.currentMovement,
       });
-      setAvatarImg(newImagen);
+      setAvatarImg(newImage);
       if (count === 4) {
         clearInterval(intervalId);
       }
@@ -38,8 +38,7 @@ export const ScreenUseCase = () => {
   };
 
   const moveAvatarToUp = async (limit = 90) => {
-    const newImagen = getImageChanger({ newMovement: "ArrowUp" });
-    setAvatarImg(newImagen);
+    animateAvatar({ movement: "ArrowUp" });
 
     for (let index = 0; index < limit; index++) {
       await new Promise((resolve) => {
@@ -52,15 +51,14 @@ export const ScreenUseCase = () => {
 
       setAvatarProperties(avatar.getProperties());
     }
+    debounce(calmDownAvatar, 500);
   };
-  console.log(avatarImg, "d=====(￣▽￣*)bd=====(￣▽￣*)bd=====(￣▽￣*)b");
-
-  let asd = undefined;
 
   const moveAvatarToRight = () => {
     animateAvatar({ movement: "ArrowRight" });
     avatar.moveAvatarToRight();
     setAvatarProperties(avatar.getProperties());
+    debounce(calmDownAvatar, 500);
   };
 
   const moveAvatarToLeft = () => {
@@ -76,6 +74,19 @@ export const ScreenUseCase = () => {
     avatar.moveAvatarToDown();
     setAvatarProperties(avatar.getProperties());
   };
+
+  const calmDownAvatar = () => {
+    console.log("calmDownAvatar, (^///^)(^///^)(^///^)");
+    const newImagen = getImageChanger({
+      newMovement: `${avatar.getPropertyCurrentMovement()}5`,
+    });
+    setAvatarImg(newImagen);
+  };
+
+/*   useEffect(() => {
+    console.log("calmDownAvatar, (^///^)(^///^)(^///^)");
+    debounce(calmDownAvatar, 500);
+  }, [avatarImg]); */
 
   useEffect(() => {
     document.addEventListener(
