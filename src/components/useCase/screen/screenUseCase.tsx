@@ -15,11 +15,11 @@ export const ScreenUseCase = () => {
   const [avatarImg, setAvatarImg] = useState<StaticImageData>();
 
   useEffect(() => {
-    const newImagen = getImageChanger({ newMovement: "ArrowRight" });
+    const newImagen = getImageChanger({ newMovement: "ArrowRight5" });
     setAvatarImg(newImagen);
 
     setInterval(() => {
-      avatar.moveAvatarToDown();
+      avatar.moveAvatarToDown({ gravity: true });
       setAvatarProperties(avatar.getProperties());
     }, 15);
   }, []);
@@ -31,49 +31,11 @@ export const ScreenUseCase = () => {
         newMovement: `${movement}${count}`,
       });
       setAvatarImg(newImage);
-      if (count === 4) {
+      if (count >= 4) {
         clearInterval(intervalId);
       }
       count++;
     }, 100);
-  };
-
-  const moveAvatarToUp = async (limit = 90) => {
-    animateAvatar({ movement: "ArrowUp" });
-
-    for (let index = 0; index < limit; index++) {
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(resolve);
-        }, 5);
-      });
-
-      avatar.moveToUp();
-
-      setAvatarProperties(avatar.getProperties());
-    }
-    // calmDownAvatar({ waitTime: 200 });
-  };
-
-  const moveAvatarToRight = () => {
-    animateAvatar({ movement: "ArrowRight" });
-    avatar.moveAvatarToRight();
-    setAvatarProperties(avatar.getProperties());
-    calmDownAvatar({ waitTime: 700 });
-  };
-
-  const moveAvatarToLeft = () => {
-    const newImagen = getImageChanger({ newMovement: "ArrowLeft" });
-    setAvatarImg(newImagen);
-    avatar.moveAvatarToLeft();
-    setAvatarProperties(avatar.getProperties());
-  };
-
-  const moveAvatarToDown = () => {
-    const newImagen = getImageChanger({ newMovement: "ArrowDown" });
-    setAvatarImg(newImagen);
-    avatar.moveAvatarToDown();
-    setAvatarProperties(avatar.getProperties());
   };
 
   const calmDownAvatar = ({ waitTime }: { waitTime: number }) => {
@@ -89,6 +51,44 @@ export const ScreenUseCase = () => {
     });
 
     setIntervalId(id);
+  };
+
+  const moveAvatarToUp = async (limit = 90) => {
+    animateAvatar({ movement: `ArrowUp` });
+
+    for (let index = 0; index < limit; index++) {
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(resolve);
+        }, 5);
+      });
+
+      avatar.moveToUp();
+
+      setAvatarProperties(avatar.getProperties());
+    }
+    calmDownAvatar({ waitTime: 1000 });
+  };
+
+  const moveAvatarToRight = () => {
+    animateAvatar({ movement: "ArrowRight" });
+    avatar.moveAvatarToRight();
+    setAvatarProperties(avatar.getProperties());
+    calmDownAvatar({ waitTime: 700 });
+  };
+
+  const moveAvatarToLeft = () => {
+    animateAvatar({ movement: "ArrowLeft" });
+    avatar.moveAvatarToLeft();
+    setAvatarProperties(avatar.getProperties());
+    calmDownAvatar({ waitTime: 700 });
+  };
+
+  const moveAvatarToDown = () => {
+    const newImagen = getImageChanger({ newMovement: "ArrowDown" });
+    setAvatarImg(newImagen);
+    avatar.moveAvatarToDown({ gravity: false });
+    setAvatarProperties(avatar.getProperties());
   };
 
   useEffect(() => {

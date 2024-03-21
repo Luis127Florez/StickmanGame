@@ -57,14 +57,16 @@ export class Avatar {
     this.top -= 2;
   }
 
-  moveAvatarToDown() {
+  moveAvatarToDown({ gravity }: { gravity: boolean }) {
     const { isDevouring, typesDevouring } = checkDevouring(document);
 
     const typeDevouring = typesDevouring.find((type) => type === "bottom");
 
     if (isDevouring && typeDevouring) return;
 
-    this.currentMovement = "ArrowDown";
+    if (!gravity) {
+      this.currentMovement = "ArrowDown";
+    }
 
     this.top += 2;
   }
