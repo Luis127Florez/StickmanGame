@@ -1,3 +1,3 @@
-export class Enemy {
+export class Scene {
   constructor() {}
 }
