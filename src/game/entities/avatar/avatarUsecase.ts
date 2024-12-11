@@ -1,5 +1,5 @@
-import { checkDevouring } from "../avatarFunctions/avatarCheckDevouring";
-import { TMovement } from "../avatarFunctions/types.d";
+import { checkDevouring } from "../../systems/avatarCheckDevouring";
+import { TMovement } from "../../systems/types";
 
 export class Avatar {
   private static instance: Avatar;

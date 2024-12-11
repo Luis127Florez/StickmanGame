@@ -1,7 +1,7 @@
 import {
   TFCheckDevouring,
   TTypesDevouring,
-} from "../../components/types/screenTypes/screenTypes";
+} from "../../core/types/screenTypes/screenTypes";
 
 export const checkDevouring = (document: Document): TFCheckDevouring => {
   const screenDocument = document.getElementById("screen");

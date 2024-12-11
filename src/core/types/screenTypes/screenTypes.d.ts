@@ -1,4 +1,4 @@
-import { Avatar } from "../../../controllers/avatar/avatarController";
+import { Avatar } from "../../../game/entities/avatar/avatarUsecase";
 import { TAvatarProperties } from "../../useCase/screen/types";
 
 export type TTypesDevouring = "left" | "right" | "top" | "bottom";

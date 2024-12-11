@@ -1,4 +1,4 @@
-import { TMovement } from "../../../controllers/avatarFunctions/types.d";
+import { TMovement } from "../../../game/systems/types";
 export type TMovement = "ArrowUp" | "ArrowRight" | "ArrowLeft" | "ArrowDown";
 
 export type TAvatarProperties = {
