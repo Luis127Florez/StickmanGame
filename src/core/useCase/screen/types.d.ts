@@ -1,5 +1,18 @@
 import { TMovement } from "../../../game/systems/types";
-export type TMovement = "ArrowUp" | "ArrowRight" | "ArrowLeft" | "ArrowDown";
+export type TMovement =
+  | "Jump"
+  | "Yes"
+  | "No"
+  | "Wave"
+  | "Punch"
+  | "ThumbsUp"
+  | "Idle"
+  | "Walking"
+  | "Running"
+  | "Dance"
+  | "Death"
+  | "Sitting"
+  | "Standing";
 
 export type TAvatarProperties = {
   left: number;

@@ -4,36 +4,10 @@ import EnemyOne from "../../../../public/textures/img/enemyLevelOne.png";
 import { TCScreen } from "../../types/screenTypes/screenTypes";
 import "./styles.css";
 
-export const ScreenView = ({ avatarImg, avatarProperties }: TCScreen) => {
+export const ScreenView = () => {
   return (
     <div className="container">
-      <div id="screen" className="screen">
-        {avatarImg && (
-          <Image
-            style={{
-              position: "absolute",
-              right: avatarProperties?.right,
-              top: avatarProperties?.top,
-            }}
-            id="avatar"
-            width={59}
-            height={59}
-            src={avatarImg}
-            alt="avatar"
-          />
-        )}
-
-        <Image
-          style={{
-            position: "absolute",
-          }}
-          id="enemyOne"
-          src={EnemyOne}
-          width={59}
-          height={59}
-          alt=""
-        />
-      </div>
+      <div id="screen" className="screen"></div>
       <div id="control" className="control">
         <Image
           id="playButton"
