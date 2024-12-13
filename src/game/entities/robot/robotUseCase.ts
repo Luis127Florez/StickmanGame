@@ -8,8 +8,14 @@ export class Robot {
   private actions: Record<string, THREE.AnimationAction> = {};
   private activeAction: THREE.AnimationAction | null = null;
   private previousAction: THREE.AnimationAction | null = null;
+  private static instance: Robot;
+  private scene: Scene | null = null;
 
-  constructor(private scene: Scene) {}
+  constructor() {}
+
+  loadScene(scene: Scene) {
+    this.scene = scene;
+  }
 
   loadModel(path: string, onLoad?: () => void, onError?: (error: any) => void) {
     const loader = new GLTFLoader();
@@ -30,7 +36,11 @@ export class Robot {
             this.actions[clip.name] = action;
           });
 
-          this.scene.addElementTHREEToScene(this.model);
+          if (this.scene) {
+            this.scene.addElementTHREEToScene(this.model);
+          } else {
+            console.warn("No ha cargado la scene");
+          }
 
           if (onLoad) onLoad();
         }
@@ -63,6 +73,14 @@ export class Robot {
       .setEffectiveWeight(1)
       .fadeIn(duration)
       .play();
+  }
+
+  public static getInstance(): Robot {
+    if (!Robot.instance) {
+      Robot.instance = new Robot();
+    }
+
+    return Robot.instance;
   }
 
   // Método para actualizar el mixer (llamado en cada frame)

@@ -1,7 +1,5 @@
 import Image from "next/image";
 import ButtonPlayImg from "../../../../public/textures/img/boton-de-play.png";
-import EnemyOne from "../../../../public/textures/img/enemyLevelOne.png";
-import { TCScreen } from "../../types/screenTypes/screenTypes";
 import "./styles.css";
 
 export const ScreenView = () => {

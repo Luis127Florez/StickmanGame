@@ -8,6 +8,7 @@ export class Scene {
   camera: THREE.PerspectiveCamera;
   renderer: THREE.WebGLRenderer;
   loader: GLTFLoader;
+  private static instance: Scene;
 
   mixer: any;
 
@@ -74,6 +75,15 @@ export class Scene {
     grid.material.opacity = 0.2;
     grid.material.transparent = true;
     this.addElementTHREEToScene(grid);
+  }
+
+
+  public static getInstance(): Scene {
+    if (!Scene.instance) {
+      Scene.instance = new Scene();
+    }
+
+    return Scene.instance;
   }
 
   /*  animate(thisA: any) {

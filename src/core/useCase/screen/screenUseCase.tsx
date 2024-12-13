@@ -1,52 +1,54 @@
 import { ScreenView } from "../../views/screen/screenView";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TMovement } from "./types";
 import * as THREE from "three";
 import { Scene } from "../../../game/scenes/scenesCreator/scenesCreator";
 import { Robot } from "../../../game/entities/robot/robotUseCase";
+import { debounce } from "../../../game/functions/debounce";
+import { OrbitControls } from "../../../../js/OrbitControls";
 
 export const ScreenUseCase = () => {
-  const robotRef = useRef<any>(null);
+  const [robot] = useState<Robot>(Robot.getInstance());
+  const [scene] = useState<Scene>(Scene.getInstance());
 
   const chargedSceneAndCamera = () => {
-    // creación de la escena
-    const scene = new Scene();
+    // creación de la escena;
     scene.renderScene("screen", animate);
     scene.addLight();
     scene.addGridMesh();
-    
-    const robot = new Robot(scene);
+
+    robot.loadScene(scene);
+
     robot.loadModel(
       "/models/robot/RobotExpressive.glb",
       () => {
         robot.fadeToAction("Running", 0.5); // Cambiar al estado inicial
       },
-      (error) => console.error(error)
+      (error: any) => console.error(error)
     );
-  
+
     // Animación
     const clock = new THREE.Clock();
-  
+
     function animate() {
       const deltaTime = clock.getDelta();
       robot.update(deltaTime); // Actualizar robot
       scene.renderer.render(scene.scene, scene.camera);
     }
-  }
+  };
 
+  let intervalId: NodeJS.Timeout;
   useEffect(() => {
-    chargedSceneAndCamera();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    intervalId = debounce({
+      func: chargedSceneAndCamera,
+      delay: 10,
+      intervalId,
+    });
   }, []);
 
-
   const animateAvatar = ({ movement }: { movement: TMovement }) => {
-    console.log(robotRef.current);
-
-    if (robotRef.current) {
-      robotRef.current.fadeToAction(movement, 0.5);
-    } else {
-      console.warn("Robot no está cargado todavía.");
-    }
+    robot.fadeToAction(movement, 0.5);
   };
 
   const moveAvatarToUp = async () => {
