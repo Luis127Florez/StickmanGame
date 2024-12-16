@@ -17,7 +17,16 @@ export const ScreenUseCase = () => {
     scene.addLight();
     scene.addGridMesh();
 
+    // control 
+
+    const controls = new OrbitControls(scene.camera, scene.renderer.domElement);
+    controls.target.set(0, 10, 0);
+    controls.update();
+    
+   // robot 
     robot.loadScene(scene);
+    
+
 
     robot.loadModel(
       "/models/robot/RobotExpressive.glb",
@@ -32,6 +41,7 @@ export const ScreenUseCase = () => {
 
     function animate() {
       const deltaTime = clock.getDelta();
+      controls.update(); // Actualizar move
       robot.update(deltaTime); // Actualizar robot
       scene.renderer.render(scene.scene, scene.camera);
     }

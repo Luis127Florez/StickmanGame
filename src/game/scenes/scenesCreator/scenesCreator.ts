@@ -32,15 +32,15 @@ export class Scene {
     this.mixer = null;
 
     this.camera = new THREE.PerspectiveCamera(
-      cameraMeasures?.fov ?? 75,
+      cameraMeasures?.fov ?? 70,
       cameraMeasures?.aspect ?? window.innerWidth / window.innerHeight,
-      cameraMeasures?.near ?? 0.1,
-      cameraMeasures?.far ?? 1000
+      cameraMeasures?.near ?? 1.0,
+      cameraMeasures?.far ?? 1000.0
     );
-    this.camera.position.set(-5, 3, 10);
+    this.camera.position.set(25, 10, 25);
     this.camera.lookAt(0, 2, 0);
 
-    this.camera.position.z = 5;
+    //this.camera.position.z = 5;
   }
 
   addElementTHREEToScene(elementTHREE: any) {

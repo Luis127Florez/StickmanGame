@@ -26,7 +26,7 @@ export class Robot {
         this.model = gltf?.scene;
 
         if (this.model) {
-          this.model.scale.set(0.5, 0.5, 0.5);
+          // this.model.scale.set(0.5, 0.5, 0.5);
 
           this.mixer = new THREE.AnimationMixer(this.model);
 
